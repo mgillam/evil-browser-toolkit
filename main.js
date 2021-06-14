@@ -8,11 +8,12 @@ window.penTools = {
            setTimeout(resolve, ms);
          })
        }
-       let contentTypeHeaderKey = Object.keys(options.headers || []).filter(headerName => headerName.toUpperCase === 'CONTENT-TYPE')[0];
+       let contentTypeHeaderKey = Object.keys(options.headers || []).filter(headerName => headerName.toUpperCase() === 'CONTENT-TYPE')[0];
        if(contentTypeHeaderKey) {
          config.contentType = options.headers[contentTypeHeaderKey];
        } else {
          //infer the type
+         console.log('content type unspecified, inferring type.')
          if(!options.method || options.method === 'GET') {
              config.contentType = null;
          } else {
@@ -39,6 +40,7 @@ window.penTools = {
            if(options.body) {
              config.bodyParams = JSON.parse(options.body);
            }
+           console.log("fuzzing as JSON");
            config.constructBody = JSON.stringify;
            break;
          default:
